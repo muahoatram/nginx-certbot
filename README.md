@@ -18,11 +18,17 @@ application.
 - Add domains and email addresses to init-letsencrypt.sh
 - Replace all occurrences of example.org with primary domain (the first one you added to init-letsencrypt.sh) in data/nginx/app.conf
 
-4. Run the init script:
+4. Initialization dump cer
+
+        mkdir data/certbot/conf/live/domain.org
+        path="/etc/letsencrypt/live/domain.org"
+        docker-compose run --rm --entrypoint "openssl req -x509 -nodes -newkey rsa:1024 -days 1 -keyout '$path/privkey.pem' -out '$path/fullchain.pem' -subj '/CN=localhost'" certbot
+
+5. Run the init script:
 
         ./init-letsencrypt.sh
 
-5. Run the server:
+6. Run the server:
 
         docker-compose up
 
